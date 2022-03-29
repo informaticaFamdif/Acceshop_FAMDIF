@@ -4,17 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.FragmentName;
@@ -81,8 +84,18 @@ public class BusquedaFragment extends BaseFragment {
 
         setMainActivity((MainActivity) getActivity());
 
-        getMainActivity().getSupportActionBar().setTitle("BUSQUEDA");
+        //getMainActivity().getSupportActionBar().setTitle("BUSQUEDA");
         final View view=inflater.inflate(R.layout.fragment_busqueda, container, false);
+
+        MainActivity mactiv= (MainActivity) getActivity();
+        Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
+
+        TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
+
+        pageIcon.setVisibility(view.GONE);
+        pageIcon.setImageResource(R.drawable.ic_noticias);
+        pageTitle.setText("BUSCAR");;
 
         tipoTienda=view.findViewById(R.id.desplegableTipoEstablecimiento);
         subtipoTienda=view.findViewById(R.id.desplegablesubtipoEstablecimiento);
@@ -175,6 +188,7 @@ public class BusquedaFragment extends BaseFragment {
 
                 }else{
                     busqueda3(tTienda,stTienda,despDistancia.getSelectedItem().toString(),despAccesibilidad.getSelectedItem().toString());
+
                 }
 
             }
@@ -225,6 +239,14 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
+                                    MainActivity.db.collection("userLogros")
+                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                            .update("000002", "000002");
+                                    MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }
                         }else if(task.isSuccessful() && tipoBusqueda == 1){
@@ -248,6 +270,14 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
+                                    MainActivity.db.collection("userLogros")
+                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                            .update("000002", "000002");
+                                    MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }
                         }else if(task.isSuccessful() && tipoBusqueda == 3){
@@ -272,6 +302,14 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))) {
+                                        MainActivity.db.collection("userLogros")
+                                                .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                                .update("000002", "000002");
+                                        MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }
                         }else if(task.isSuccessful() && tipoBusqueda == 4){
@@ -294,6 +332,14 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
+                                    MainActivity.db.collection("userLogros")
+                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                            .update("000002", "000002");
+                                    MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -366,6 +412,7 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if(tiendasEncontradas.size()>0) {
+
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }
                         }
@@ -464,6 +511,7 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if(tiendasEncontradas.size()>0) {
+
                                 getMainActivity().setFragment(FragmentName.MAP);
                             }
                         }

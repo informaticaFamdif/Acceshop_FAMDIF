@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:id="@+id/index_nav_menu">
+
+    <ImageButton
+        android:id="@+id/indexSearchButton"
+        android:layout_width="95dp"
+        android:layout_height="133dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/descripcion_boton_mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_center_button_test" />
+
+    <LinearLayout
+        android:layout_width="413dp"
+        android:layout_height="65dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/indexMenuButton"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/ic_izq169" />
+
+        <ImageButton
+            android:id="@+id/indexAboutUsButton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="center"
+            android:src="@drawable/ic_esquinaizquierdaindex" />
+
+        <ImageButton
+            android:id="@+id/indexSignInButton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="center"
+            android:src="@drawable/ic_esquinaderechaindex169" />
+
+        <ImageButton
+            android:id="@+id/indexLogInButton"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:scaleType="center"
+            android:src="@drawable/ic_derindex169" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

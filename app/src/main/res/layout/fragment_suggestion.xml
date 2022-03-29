@@ -7,8 +7,8 @@
     tools:context=".fragment.SuggestionFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="352dp"
-        android:layout_height="247dp"
+        android:layout_width="@dimen/_275sdp"
+        android:layout_height="@dimen/_250sdp"
         android:layout_gravity="center">
 
 
@@ -59,7 +59,7 @@
 
             <Button
                 android:id="@+id/btnEnviarSugerencia"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
                 android:text="Enviar Sugerencia" />

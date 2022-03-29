@@ -7,10 +7,12 @@
 
 
     <ScrollView
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="580dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp">
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="@dimen/_20sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Nombre:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/nombreTiendaSeleccionada"
@@ -31,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio"
@@ -44,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="Dirección:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/direccionTiendaSeleccionada"
@@ -52,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio1"
@@ -65,14 +67,14 @@
                 android:layout_height="wrap_content"
                 android:text="Tipo de Establecimiento:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tipoEstablecimientoSeleccionado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio2"
@@ -85,14 +87,14 @@
                 android:layout_height="wrap_content"
                 android:text="Subtipo de establecimiento:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/subtipoEstablecimientoSeleccionado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio3"
@@ -105,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="Accesibilidad:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/accesibilidadTiendaSeleccionada"
@@ -113,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio13"
@@ -126,25 +128,25 @@
                 android:layout_height="wrap_content"
                 android:text="Puntuación Media:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <RatingBar
                 android:id="@+id/ratingBarMed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"
-                android:stepSize="0.5"
-                android:isIndicator="true"/>
+                android:stepSize="0.5" />
 
             <TextView
                 android:id="@+id/idPuntuacionMediaObtenida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text=""
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
             <Space
                 android:id="@+id/idEspacio21"
@@ -157,7 +159,8 @@
                 android:layout_height="wrap_content"
                 android:text="Mi Puntuación:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="30dp" />
@@ -188,10 +191,10 @@
                 android:id="@+id/idPuntuacionObtenida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text=""
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
 
             <Space
@@ -205,14 +208,14 @@
                 android:layout_height="wrap_content"
                 android:text="Entrada:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idAccesoObtenido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio4"
@@ -225,14 +228,14 @@
                 android:layout_height="wrap_content"
                 android:text="Puerta:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idPuertaObtenida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:id="@+id/idEspacio9"
@@ -245,14 +248,14 @@
                 android:layout_height="wrap_content"
                 android:text="Fecha Registro:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idFechaCreacionObtenida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -265,13 +268,12 @@
                 android:layout_height="wrap_content"
                 android:text="Imagenes del establecimiento:"
                 android:textSize="20dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/image_view_upload"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                ></ImageView>
+                android:layout_height="200dp"></ImageView>
 
             <Space
                 android:id="@+id/idEspacio6"
@@ -281,8 +283,7 @@
             <ImageView
                 android:id="@+id/image_view_upload1"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                ></ImageView>
+                android:layout_height="200dp"></ImageView>
 
             <Space
                 android:id="@+id/idEspacio7"

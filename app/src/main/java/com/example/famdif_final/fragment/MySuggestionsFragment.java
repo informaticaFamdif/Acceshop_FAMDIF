@@ -45,9 +45,6 @@ public class MySuggestionsFragment extends BaseFragment {
         lista=view.findViewById(R.id.idListaSugerencias);
         lista.setAdapter(adaptador);
 
-        getMainActivity().getSupportActionBar().setTitle("MIS SUGERENCIAS");
-
-
         return view;
     }
 

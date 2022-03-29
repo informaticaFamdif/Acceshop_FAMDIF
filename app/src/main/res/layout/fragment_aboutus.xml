@@ -8,31 +8,33 @@
 
 
     <LinearLayout
-        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/_560sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:orientation="vertical">
 
 
         <TextView
-            android:padding="10dp"
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="La Federación de Asociaciones Murcianas de Personas con Discapacidad Física y Orgánica (FAMDIF/COCEMFE-Murcia) es una organización no gubernamental, de carácter social, sin ánimo de lucro y declarada de utilidad pública, que pretende servir de cauce a las inquietudes de las asociaciones de personas con discapacidad física y orgánica de la Región de Murcia." />
 
         <TextView
-            android:padding="10dp"
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Esta tiene un carácter esencialmente reivindicativo, así como prestador de servicios en la medida que las administraciones no los generen. Nacimos como respuesta a las inquietudes de las Asociaciones que la componen, actualmente diecisiete, como medio de aunar esfuerzos para lograr sus objetivos comunes: lograr la integración social y cultural de las personas con discapacidad y su participación activa y normalizada en la sociedad." />
 
         <TextView
-            android:padding="10dp"
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
             android:text="Promovemos la intervención ante los problemas sociales y en especial ante aquellos que incumben más directamente a las personas con discapacidad física y orgánica, por sus especiales características. Pretendemos alcanzar la eliminación de barreras arquitectónicas y sociales; el acceso a la cultura, al trabajo, al deporte y a la salud, entre otros." />
 
         <ImageView

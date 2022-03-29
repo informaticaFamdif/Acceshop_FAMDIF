@@ -6,7 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.FragmentName;
@@ -31,7 +35,16 @@ public class BusquedaValorarTiendaFragment extends BaseFragment {
         direccionTienda=view.findViewById(R.id.textoDireccion);
         btnBusqueda=view.findViewById(R.id.btnBusquedaTiendaValorar);
 
-        getMainActivity().getSupportActionBar().setTitle("VALORAR TIENDA");
+        MainActivity mactiv= (MainActivity) getActivity();
+        Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
+
+        TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
+
+        pageIcon.setVisibility(view.GONE);
+        pageIcon.setImageResource(R.drawable.ic_noticias);
+        pageTitle.setText("VALORAR");
+
 
         btnBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override

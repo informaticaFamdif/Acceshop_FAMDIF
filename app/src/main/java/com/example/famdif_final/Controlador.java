@@ -15,6 +15,8 @@ public class Controlador {
     private FirebaseUser currentUser;
     //private List<Tienda> tiendas;
     private Tienda selectedShop;
+    private Mensaje selectedMessage;
+    private Poll selectedPoll;
     private Location currentPosition;
     private String usuario;
     private String usuarioBorrar;
@@ -108,8 +110,20 @@ public class Controlador {
         return selectedShop;
     }
 
+    public Mensaje getSelectedMessage() {
+        return selectedMessage;
+    }
+
     public void setSelectedShop(Tienda selectedShop) {
         this.selectedShop = selectedShop;
+    }
+
+    public void setSelectedMessage(Mensaje selectedMessage) {
+        this.selectedMessage = selectedMessage;
+    }
+
+    public void setSelectedPoll(Poll selectedPoll) {
+        this.selectedPoll = selectedPoll;
     }
 
     public Location getCurrentPosition() {

@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.example.famdif_final.Controlador;
@@ -50,9 +53,14 @@ public class MapsFragment extends BaseFragment {
             result=lista.size();
             Controlador.getInstance().getShops().clear();
 
+            MainActivity mactiv= (MainActivity) getActivity();
+            Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
 
+            TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+            ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
 
-            getMainActivity().getSupportActionBar().setTitle("BUSQUEDA - RESULTADOS ("+result+")");
+            pageTitle.setText("");
+            pageIcon.setVisibility(getView().GONE);
 
             for(Tienda t: lista) {
                 if(t.getClasificacion()!=null && t.getLatitud()!=null && t.getLongitud()!=null) {
@@ -110,7 +118,7 @@ public class MapsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
         setMainActivity((MainActivity) getActivity());
-        getMainActivity().getSupportActionBar().setTitle("BUSQUEDA - RESULTADOS ("+result+")");
+        //getMainActivity().getSupportActionBar().setTitle("BUSQUEDA - RESULTADOS ("+result+")");
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
         SupportMapFragment mapFragment =

@@ -80,7 +80,8 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
         tiendaSeleccionada= Controlador.getInstance().getSelectedShop();
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_tienda_seleccionada, container, false);
-        getMainActivity().getSupportActionBar().setTitle("Búsqueda - "+tiendaSeleccionada.getNombre());
+        //getMainActivity().getSupportActionBar().setTitle("Búsqueda - "+tiendaSeleccionada.getNombre());
+        //TODO:Titulo
         obtenerImagen();
         tNombre=view.findViewById(R.id.idNombreTiendaSeleccionada);
         nombre=view.findViewById(R.id.nombreTiendaSeleccionada);
@@ -211,6 +212,14 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
 
                                 MainActivity.db.collection("votaciones").document(nuevaVotacion.getEmail()+nuevaVotacion.getId())
                                         .set(v);
+
+                                    if (!(MainActivity.logrosUsuario.contains("000003"))){
+                                        Log.d("b", "entra");
+                                    MainActivity.db.collection("userLogros")
+                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                            .update("000003", "000003");
+                                    MainActivity.logrosUsuario.add("000003");
+                                }
                             }
 
                         }

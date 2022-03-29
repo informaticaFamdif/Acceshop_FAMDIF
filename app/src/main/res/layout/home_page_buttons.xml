@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:id="@+id/home_nav_menu">
+
+    <ImageButton
+        android:id="@+id/homeSearchButton"
+        android:layout_width="95dp"
+        android:layout_height="133dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/descripcion_boton_mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_center_button_test" />
+
+    <LinearLayout
+        android:layout_width="413dp"
+        android:layout_height="65dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/homeMenuButton"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/descripcion_boton_menu"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_izq" />
+
+        <ImageButton
+            android:id="@+id/homeRateShopsButton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/descripcion_boton_sobre_nosotros"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_esquinaizquierda" />
+
+        <ImageButton
+            android:id="@+id/homeSuggestionsButton"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/descripcion_boton_nuevo_usuario"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_esquinaderecha" />
+
+        <ImageButton
+            android:id="@+id/homeLogOutButton"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/descripcion_boton_usuario"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_der" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

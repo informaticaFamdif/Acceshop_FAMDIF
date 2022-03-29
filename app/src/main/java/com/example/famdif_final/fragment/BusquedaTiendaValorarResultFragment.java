@@ -1,13 +1,17 @@
 package com.example.famdif_final.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.famdif_final.adaptador.AdaptadorTienda;
 import com.example.famdif_final.Controlador;
@@ -21,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class BusquedaTiendaValorarResultFragment extends BaseFragment{
     private View view;
@@ -56,7 +61,15 @@ public class BusquedaTiendaValorarResultFragment extends BaseFragment{
             }
         });
 
-        getMainActivity().getSupportActionBar().setTitle("VALORAR TIENDA");
+        MainActivity mactiv= (MainActivity) getActivity();
+        Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
+
+        TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
+
+        pageIcon.setVisibility(view.GONE);
+        pageIcon.setImageResource(R.drawable.ic_noticias);
+        pageTitle.setText("VALORAR");
 
 
         return view;
@@ -72,24 +85,27 @@ public class BusquedaTiendaValorarResultFragment extends BaseFragment{
                         if(task.isSuccessful()){
                             if(Controlador.getInstance().getNombreTiendaValorar().length()>0 && Controlador.getInstance().getDireccionTiendaValorar().length()>0){
                                 for (QueryDocumentSnapshot d : task.getResult()){
-                                    if(d.get("direccion").toString().contains(Controlador.getInstance().getDireccionTiendaValorar()) && d.get("nombre").toString().contains(Controlador.getInstance().getNombreTiendaValorar())) {
+                                    if(d.get("direccion").toString().toUpperCase(Locale.ROOT).contains(Controlador.getInstance().getDireccionTiendaValorar()) && d.get("nombre").toString().contains(Controlador.getInstance().getNombreTiendaValorar().toUpperCase(Locale.ROOT))) {
                                         Tienda t = d.toObject(Tienda.class);
+                                        Log.d("1er block", "true");
                                         model.add(t);
                                         adaptador.notifyDataSetChanged();
                                     }
                                 }
                             }else if(Controlador.getInstance().getDireccionTiendaValorar().length()>0){
                                 for (QueryDocumentSnapshot d : task.getResult()){
-                                    if(d.get("direccion").toString().contains(Controlador.getInstance().getDireccionTiendaValorar())) {
+                                    if(d.get("direccion").toString().toUpperCase(Locale.ROOT).contains(Controlador.getInstance().getDireccionTiendaValorar().toUpperCase(Locale.ROOT))) {
                                         Tienda t = d.toObject(Tienda.class);
+                                        Log.d("2º block", "true");
                                         model.add(t);
                                         adaptador.notifyDataSetChanged();
                                     }
                                 }
                             }else{
                                 for (QueryDocumentSnapshot d : task.getResult()){
-                                    if(d.get("nombre").toString().contains(Controlador.getInstance().getNombreTiendaValorar())) {
+                                    if(d.get("nombre").toString().toUpperCase(Locale.ROOT).contains(Controlador.getInstance().getNombreTiendaValorar().toUpperCase(Locale.ROOT))) {
                                         Tienda t = d.toObject(Tienda.class);
+                                        Log.d("3er block", "true");
                                         model.add(t);
                                         adaptador.notifyDataSetChanged();
                                     }

@@ -27,4 +27,22 @@
     <string name="dialog_message_confirmar_sugerencia">¿Está seguro de querer enviar la sugerencia?</string>
     <string name="dialog_title_confirmar_sugerencia">Confirmar envío de sugerencia</string>
     <string name="dialog_title_borrar_sigerencia">Borrar Sugerencia</string>
+    <string name="descripcion_boton_logros">Boton logros (desactivado)</string>
+    <string name="logros">LOGROS</string>
+    <string name="descripcion_boton_encuestas">Boton encuestas(desactivado)</string>
+    <string name="encuestas">ENCUESTAS</string>
+    <string name="descripcion_logo_FAMDIF">Logotipo aplicación</string>
+    <string name="descripcion_boton_sugerencias">Boton sugerencias</string>
+    <string name="descripcion_boton_usuario">Boton usuario</string>
+    <string name="descripcion_boton_menu">Boton menu</string>
+    <string name="descripcion_boton_valorar">Boton valorar</string>
+    <string name="descripcion_boton_mapa">Boton mapa</string>
+    <string name="vacio">relleno</string>
+    <string name="descripcion_boton_mensajes">Boton mensajes</string>
+    <string name="mensajes">MENSAJES</string>
+    <string name="descripcion_boton_noticias">Boton noticias</string>
+    <string name="noticias">NOTICIAS</string>
+    <string name="descripcion_boton_nuevo_usuario">Boton crear usuario</string>
+    <string name="descripcion_boton_sobre_nosotros">Boton sobre nosotros</string>
+
 </resources>

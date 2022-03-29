@@ -1,15 +1,26 @@
 package com.example.famdif_final;
 
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +32,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.famdif_final.fragment.AboutUsFragment;
 import com.example.famdif_final.fragment.AccederFragment;
+import com.example.famdif_final.fragment.AchievementsFragment;
 import com.example.famdif_final.fragment.BusquedaFragment;
 import com.example.famdif_final.fragment.BusquedaSugerenciaFragment;
 import com.example.famdif_final.fragment.BusquedaSugerenciaFragmentResult;
@@ -33,10 +45,16 @@ import com.example.famdif_final.fragment.HomeFragment;
 import com.example.famdif_final.fragment.IndexFragment;
 import com.example.famdif_final.fragment.ListaUsuariosBorrarFragment;
 import com.example.famdif_final.fragment.MapsFragment;
+import com.example.famdif_final.fragment.MensajeSeleccionadoFragment;
+import com.example.famdif_final.fragment.MessagesFragment;
 import com.example.famdif_final.fragment.MySuggestionsFragment;
+import com.example.famdif_final.fragment.NewsFragment;
+import com.example.famdif_final.fragment.PollsFragment;
 import com.example.famdif_final.fragment.RegistrarFragment;
 import com.example.famdif_final.fragment.SuggestionFragment;
 import com.example.famdif_final.fragment.TiendaSeleccionadaFragment;
+import com.example.famdif_final.fragment.polls.RegisterPollFragment;
+import com.example.famdif_final.fragment.polls.TestPollFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +62,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -55,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static LocationManager locationManager;
     public static LocationListener locationListener;
-    public static Location loca;
+    public static Location loca; //Pa loca tu, calva
+
+    public static ArrayList<String> logrosUsuario = new ArrayList<>();
 
     public static final int PICK_IMAGE_REQUEST=1;
 
@@ -77,20 +99,28 @@ public class MainActivity extends AppCompatActivity {
         gpsManager = new GPSManager(this);
         Controlador.getInstance().getCurrentPosition();
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.index_toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
+        TextView pageTitle = findViewById(R.id.toolbar_title);
+        ImageView pageIcon = findViewById(R.id.toolbar_icon);
+
+        pageIcon.setVisibility(View.GONE);
+        pageTitle.setText("ACCEDE");
+
+        int nightModeFlags =  getBaseContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            pageTitle.setTextColor(Color.WHITE);
+        }else {
+            pageTitle.setTextColor(Color.BLACK);
+        }
+
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_hamburguesa);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+   //     if (actionBar != null) {
+   //         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_hamburguesa);
+   //         actionBar.setDisplayHomeAsUpEnabled(true);
+   //     }
 
         drawerLayout = findViewById(R.id.index_layout);
 
@@ -99,7 +129,13 @@ public class MainActivity extends AppCompatActivity {
             setupNavigationDrawerContent(navigationView);
         }
         setupNavigationDrawerContent(navigationView);
-        setFragment(FragmentName.INDEX);
+        if (mAuth.getCurrentUser() == null || mAuth.getCurrentUser().getDisplayName().isEmpty() ) {
+            setFragment(FragmentName.INDEX);
+        } else {
+            setFragment(FragmentName.HOME);
+
+            Log.d("nombre del tolay",mAuth.getCurrentUser().getDisplayName());
+        }
 
     }
 
@@ -135,6 +171,80 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public void showPopup(View view, int id) {
+        PopupMenu popup = new PopupMenu(view.getContext(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(id, popup.getMenu());
+        this.setupPopupMenuRedirectContent(popup);
+        popup.setForceShowIcon(true);
+        popup.show();
+    }
+
+    private void setupPopupMenuRedirectContent(PopupMenu popupMenu){
+        popupMenu.setOnMenuItemClickListener(
+                new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.item_index:
+                                setFragment(FragmentName.INDEX);
+                                break;
+
+                            case R.id.item_home:
+                                setFragment(FragmentName.HOME);
+                                break;
+
+                            case R.id.item_log_in:
+                                setFragment(FragmentName.LOG_IN);
+                                break;
+
+                            case R.id.item_add_shop:
+                                setFragment(FragmentName.ADD_SHOP);
+                                break;
+
+                            case R.id.item_search:
+                                setFragment(FragmentName.SEARCH);
+                                break;
+
+                            case R.id.item_suggestions:
+                                setFragment(FragmentName.SUGGESTIONS);
+                                break;
+
+                            case R.id.item_my_suggestions:
+                                setFragment(FragmentName.MY_SUGGESTIONS);
+                                break;
+
+                            case R.id.item_log_out:
+                                logOut();
+                                break;
+
+                            case R.id.item_sign_in:
+                                setFragment(FragmentName.SIGN_IN);
+                                break;
+
+                            case R.id.item_delete_user:
+                                setFragment(FragmentName.DELETE_USER);
+                                break;
+
+                            case R.id.item_view_suggestions:
+                                setFragment(FragmentName.VIEW_SUGGESTIONS);
+                                break;
+
+                            case R.id.item_rate_shops:
+                                setFragment(FragmentName.RATE_SHOP);
+                                break;
+
+                            case R.id.item_about_us:
+                                setFragment(FragmentName.ABOUT_US);
+                                break;
+                        }
+
+                        return true;
+                    }
+                }
+        );
     }
 
     private void setupNavigationDrawerContent(NavigationView navigationView) {
@@ -251,6 +361,11 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.index_fragment, tiendaSeleccionadaFragment);
                 break;
 
+            case MESSAGE_DETAILS:
+                MensajeSeleccionadoFragment mensajeSeleccionadoFragment = new MensajeSeleccionadoFragment();
+                fragmentTransaction.replace(R.id.index_fragment, mensajeSeleccionadoFragment);
+                break;
+
             case EDIT_SHOP:
                 EditShopFragment editShopFragment = new EditShopFragment();
                 fragmentTransaction.replace(R.id.index_fragment,editShopFragment);
@@ -264,6 +379,26 @@ public class MainActivity extends AppCompatActivity {
             case LIST_USUARIOS_BORRAR:
                 ListaUsuariosBorrarFragment listaUsuariosBorrarFragment = new ListaUsuariosBorrarFragment();
                 fragmentTransaction.replace(R.id.index_fragment,listaUsuariosBorrarFragment);
+                break;
+
+            case NEWS_FRAGMENT:
+                NewsFragment newsFragment = new NewsFragment();
+                fragmentTransaction.replace(R.id.index_fragment,newsFragment);
+                break;
+
+            case POLLS_FRAGMENT:
+                PollsFragment pollsFragment = new PollsFragment();
+                fragmentTransaction.replace(R.id.index_fragment,pollsFragment);
+                break;
+
+            case MESSAGES_FRAGMENT:
+                MessagesFragment messagesFragment = new MessagesFragment();
+                fragmentTransaction.replace(R.id.index_fragment,messagesFragment);
+                break;
+
+            case ACHIEVEMENTS_FRAGMENT:
+                AchievementsFragment achievementsFragment = new AchievementsFragment();
+                fragmentTransaction.replace(R.id.index_fragment,achievementsFragment);
                 break;
 
             case VIEW_SUGGESTIONS:
@@ -289,6 +424,18 @@ public class MainActivity extends AppCompatActivity {
             case ABOUT_US:
                 AboutUsFragment aboutUsFragment = new AboutUsFragment();
                 fragmentTransaction.replace(R.id.index_fragment,aboutUsFragment);
+                break;
+
+            //POLLS: Estas variables sirven para abrir las vistas de las distintas encuestas.
+            case REGISTER_POLL:
+                RegisterPollFragment registerPollFragment = new RegisterPollFragment();
+                fragmentTransaction.replace(R.id.index_fragment, registerPollFragment);
+                break;
+
+            case TEST_POLL:
+
+                TestPollFragment testPollFragment = new TestPollFragment();
+                fragmentTransaction.replace(R.id.index_fragment, testPollFragment);
                 break;
         }
 
@@ -321,6 +468,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Hasta la proxima "+Controlador.getInstance().getUsuario(),Toast.LENGTH_LONG).show();
                     mAuth.signOut();
                     clearBackStack();
+                    Controlador.getInstance().setNombreUsuarioActual(null);
                     Controlador.getInstance().setAdmin(0);
                     setFragment(FragmentName.INDEX);
                 }
@@ -328,7 +476,6 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
 
     }
 

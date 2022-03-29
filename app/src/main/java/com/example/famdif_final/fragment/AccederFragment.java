@@ -1,17 +1,23 @@
 package com.example.famdif_final.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.FragmentName;
@@ -34,13 +40,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class AccederFragment extends BaseFragment {
     private EditText email;
     private TextInputLayout email1;
     private TextInputLayout pass1;
     //private  EditText pass;
     private Button btn;
-    private Button btnGoogle;
 
     private static final int RC_SIGN_IN=100;
     private GoogleSignInClient googleSignInClient;
@@ -82,21 +90,24 @@ public class AccederFragment extends BaseFragment {
             }
         });
 
-        btnGoogle = view.findViewById(R.id.accederBtnGoogle);
-        btnGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = googleSignInClient.getSignInIntent();
-                startActivityForResult(intent, RC_SIGN_IN);
-            }
-        });
+        MainActivity mactiv= (MainActivity) getActivity();
+        Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
 
+        TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
 
-        getMainActivity().getSupportActionBar().setTitle("LOGIN");
+        pageIcon.setVisibility(view.GONE);
+        pageIcon.setImageResource(R.drawable.ic_noticias);
+        pageTitle.setText("LOGIN");;
         getMainActivity().changeMenu(MenuType.DISCONNECTED);
         getMainActivity().setOptionMenu(R.id.item_log_in);
 
         return view;
+    }
+
+    private void hideKeybaord(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
 
     private void logInClick(View v) {
@@ -105,7 +116,7 @@ public class AccederFragment extends BaseFragment {
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-
+                            hideKeybaord(v);
                             MainActivity.db.collection("users").document(email1.getEditText().getText().toString()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot ds) {
@@ -124,7 +135,33 @@ public class AccederFragment extends BaseFragment {
                                     }
                                 }
                             });
-                            getMainActivity().getSupportActionBar().setTitle("HOME");
+                            ArrayList<String> arrayListAux = new ArrayList<String>();
+                            MainActivity.db.collection("userLogros").document(email1.getEditText().getText().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(Task<DocumentSnapshot> ds) {
+                                    if (ds.isSuccessful()) {
+                                        DocumentSnapshot document = ds.getResult();
+                                        if (document.exists()) {
+                                            for (Object h : document.getData().values()) {
+                                                arrayListAux.add(h.toString());
+                                            }
+                                            MainActivity.logrosUsuario = arrayListAux;
+                                        } else {
+                                            Log.d("No such document", "");
+                                        }
+                                    } else {
+                                        Log.d("get failed with ", ds.getException().toString());
+                                    }
+
+                                }
+                            });
+                            MainActivity mactiv= (MainActivity) getActivity();
+                            Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
+
+                            TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+                            ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
+                            pageIcon.setVisibility(v.GONE);
+                            pageTitle.setText("");
                             getMainActivity().clearBackStack();
                             getMainActivity().setFragment(FragmentName.HOME);
                         }

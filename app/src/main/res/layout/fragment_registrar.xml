@@ -13,8 +13,10 @@
 
 
         <LinearLayout
-            android:layout_width="363dp"
-            android:layout_height="341dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +51,17 @@
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <Spinner
+                android:id="@+id/spinnerAnyoNacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerPoseeDiscapacidad"
+                android:layout_width="match_parent"
+                android:layout_height="38dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/registroTextPass"
@@ -89,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text="* La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula."
                 android:textColor="#E60909"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/registroBtnRegistrar"

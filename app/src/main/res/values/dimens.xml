@@ -11,6 +11,7 @@
     -->
     <dimen name="box_inset_layout_padding">0dp</dimen>
 
+    <bool name="is16By9">false</bool>
     <!--
     This padding applies to both square and round screens. The total padding between the buttons
     and the window insets is box_inset_layout_padding (above variable) on square screens and

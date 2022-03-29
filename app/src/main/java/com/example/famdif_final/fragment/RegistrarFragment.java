@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.FragmentName;
@@ -21,7 +24,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +43,11 @@ public class RegistrarFragment extends BaseFragment {
     private TextInputLayout pass2;
     private Button btnRegistro;
     private TextView errorPass;
+    private Spinner anyoSelector;
+    private Spinner gradoSelector;
+
+    private List<String> dist= Arrays.asList("100","200","500","1000","CUALQUIERA");
+    private List<String> anyo= Arrays.asList("100","200","500","1000","CUALQUIERA");
 
     private static final String PASSWORD_PATTERN ="^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$";
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
@@ -58,6 +69,8 @@ public class RegistrarFragment extends BaseFragment {
         pass = view.findViewById(R.id.registroTextPass);
         pass2 = view.findViewById(R.id.registroTextPass2);
         errorPass = view.findViewById(R.id.errorPass);
+        anyoSelector = view.findViewById(R.id.spinnerAnyoNacimiento);
+        gradoSelector = view.findViewById(R.id.spinnerPoseeDiscapacidad);
 
         btnRegistro = view.findViewById(R.id.registroBtnRegistrar);
 
@@ -68,7 +81,15 @@ public class RegistrarFragment extends BaseFragment {
             }
         });
 
-        getMainActivity().getSupportActionBar().setTitle("Registrar");
+        MainActivity mactiv= (MainActivity) getActivity();
+        Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
+
+        TextView pageTitle = toolbar.findViewById(R.id.toolbar_title);
+        ImageView pageIcon = toolbar.findViewById(R.id.toolbar_icon);
+
+        pageIcon.setVisibility(view.GONE);
+        pageIcon.setImageResource(R.drawable.ic_noticias);
+        pageTitle.setText("REGISTRO");;
         getMainActivity().changeMenu(MenuType.DISCONNECTED);
         getMainActivity().setOptionMenu(item_sign_in);
 
@@ -91,11 +112,13 @@ public class RegistrarFragment extends BaseFragment {
                         public void onSuccess(AuthResult authResult) {
                             //REGISTRO FIRECLOUD
                             //Toast.makeText(getContext(), "Bienvenido "+email.getText().toString(), Toast.LENGTH_SHORT).show();
-                            getMainActivity().getSupportActionBar().setTitle("HOME");
                             getMainActivity().clearBackStack();
                             getMainActivity().changeMenu(MenuType.USER_LOGGED);
                             getMainActivity().setFragment(FragmentName.HOME);
                             Controlador.getInstance().setUsuario(email.getEditText().getText().toString());
+
+                            Map<String, String> userLogros = new HashMap<>();
+                            userLogros.put("000000", "000000");
 
                             Map<String, Object> user = new HashMap<>();
                             user.put("nombre",nombre.getEditText().getText().toString());
@@ -104,6 +127,8 @@ public class RegistrarFragment extends BaseFragment {
                             user.put("admin","0");
                             MainActivity.db.collection("users").document(email.getEditText().getText().toString())
                                     .set(user);
+                            MainActivity.db.collection("userLogros").document(email.getEditText().getText().toString())
+                                    .set(userLogros);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {

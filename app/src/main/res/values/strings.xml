@@ -6,7 +6,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
+    <string name="menu_noticias">Noticias</string>
+    <string name="menu_politica">Privacidad</string>
+    <item name="botoneraIndex" type="id"/>
+    <item name="botoneraHome" type="id"/>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -55,5 +58,22 @@
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
     -->
+    <string name="descripcion_boton_logros">Boton logros (desactivado)</string>
+    <string name="logros">LOGROS</string>
+    <string name="descripcion_boton_encuestas">Boton encuestas(desactivado)</string>
+    <string name="encuestas">ENCUESTAS</string>
+    <string name="descripcion_logo_FAMDIF">Logotipo aplicación</string>
+    <string name="descripcion_boton_sugerencias">Boton sugerencias</string>
+    <string name="descripcion_boton_usuario">Boton usuario</string>
+    <string name="descripcion_boton_menu">Boton menu</string>
+    <string name="descripcion_boton_valorar">Boton valorar</string>
+    <string name="descripcion_boton_mapa">Boton mapa</string>
+    <string name="vacio">relleno</string>
+    <string name="descripcion_boton_mensajes">Boton mensajes</string>
+    <string name="mensajes">MENSAJES</string>
+    <string name="descripcion_boton_noticias">Boton noticias</string>
+    <string name="noticias">NOTICIAS</string>
+    <string name="descripcion_boton_nuevo_usuario">Boton crear usuario</string>
+    <string name="descripcion_boton_sobre_nosotros">Boton sobre nosotros</string>
     <string name="hello_world">Hello Square World!</string>
 </resources>

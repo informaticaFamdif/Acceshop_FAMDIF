@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp">
+
+    <FrameLayout
+        android:id="@+id/scrollViewRegisterPollFrame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_510sdp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSpacePoll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997">
+
+        <ScrollView
+            android:id="@+id/scrollViewRegisterPoll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Encuesta Registro"
+                    android:textSize="@dimen/_16sdp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. En tus desplazamientos, ¿utilizas vehículo propio?" />
+
+                <RadioGroup
+                    android:id="@+id/preguntaUno"
+                    android:layout_width="match_parent"
+                    android:layout_height="169dp">
+
+                    <RadioButton
+                        android:id="@+id/respuesta1.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sí" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta1.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta1.3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="A veces" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. ¿Utilizas medios de transporte públicos? (autobús, tren, taxi…)" />
+
+                <RadioGroup
+                    android:id="@+id/preguntaDos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/respuesta2.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sí" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta2.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta2.3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="A veces" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. ¿Requieres de acompañante para ir a establecimientos?" />
+
+                <RadioGroup
+                    android:id="@+id/preguntaTres"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp">
+
+                    <RadioButton
+                        android:id="@+id/respuesta3.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sí" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta3.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta3.3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="A veces" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4. ¿Cómo has conocido ACCEDE COMERCIOS MURCIA?" />
+
+                <RadioGroup
+                    android:id="@+id/preguntaCuatro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/respuesta4.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Redes sociales" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta4.2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recomendado por un conocido" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta4.3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Centros educativos" />
+
+                    <RadioButton
+                        android:id="@+id/respuesta4.4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Asociaciones" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/buttonEnviarRegisterPoll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Enviar respuestas" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+    <Space
+        android:id="@+id/bottomSpacePoll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

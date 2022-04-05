@@ -332,7 +332,7 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
-                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                if (MainActivity.mAuth.getCurrentUser() != null) {
                                     if (!(MainActivity.logrosUsuario.contains("000002"))){
                                     MainActivity.db.collection("userLogros")
                                             .document(MainActivity.mAuth.getCurrentUser().getEmail())

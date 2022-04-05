@@ -54,6 +54,16 @@ public class MessagesFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    private String quitarMarcas(String string) {
+
+        String regex =("(<.*>)|(<\\/.*>)");
+        System.out.println(string.matches( regex ));
+        String aux = string.replace("<p>", "");
+        String aux2 = aux.replace("</p>", "");
+        Log.d("dafuq", aux2);
+        return aux2;
+    }
+
     private void recuperarMensajes() {
         model.clear();
         MainActivity.db.collection("mensajes")
@@ -64,6 +74,7 @@ public class MessagesFragment extends BaseFragment {
                         for (QueryDocumentSnapshot d : task.getResult()) {
                             Mensaje m = d.toObject(Mensaje.class);
                             String sinopsis = m.getCuerpo().substring(0,120) + "...";
+                            sinopsis = quitarMarcas(sinopsis);
                             m.setSinopsis(sinopsis);
                             model.add(m);
                             adaptador.notifyDataSetChanged();

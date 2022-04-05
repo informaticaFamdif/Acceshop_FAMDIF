@@ -29,6 +29,7 @@ public class Mensaje {
     public String getSinopsis() {
         return sinopsis;
     }
+
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }

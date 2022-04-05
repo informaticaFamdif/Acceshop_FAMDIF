@@ -26,8 +26,11 @@ package com.example.famdif_final.fragment.polls;
         import com.example.famdif_final.fragment.BaseFragment;
         import com.google.android.gms.tasks.OnCompleteListener;
         import com.google.android.gms.tasks.Task;
+        import com.google.api.LogDescriptor;
+        import com.google.firebase.firestore.DocumentSnapshot;
         import com.google.firebase.firestore.QueryDocumentSnapshot;
         import com.google.firebase.firestore.QuerySnapshot;
+        import com.google.protobuf.GeneratedMessageLite;
 
         import java.io.IOException;
         import java.util.HashMap;
@@ -51,6 +54,38 @@ public class RegisterPollFragment extends BaseFragment {
         MainActivity.db.collection("encuestaRegistro")
                 .document(MainActivity.mAuth.getCurrentUser().getEmail())
                 .set(respuestaEncuesta);
+        final String[] vecesRespondido = {"-1"};
+
+        MainActivity.db.collection("declaracionEncuestas")
+                .document("encuestaRegistro")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Poll vecesRespondidoAux = document.toObject(Poll.class);
+                                vecesRespondido[0] = vecesRespondidoAux.getVecesRespondido();
+                                if (Integer.parseInt(vecesRespondido[0]) > -1) {
+                                    MainActivity.db.collection("declaracionEncuestas")
+                                            .document("encuestaRegistro")
+                                            .update("vecesRespondido", Integer.parseInt(vecesRespondido[0]) + 1);
+                                } else {
+                                    Log.e("ErrorPoll", vecesRespondido[0]);
+                                    Log.e("ErrorPoll", "Encuesta no añadida al recuento, pero sus datos sí");
+                                }
+                                Log.e("PollStatus", vecesRespondido[0].toString());
+                            } else {
+                                Log.e("errorPoll", "No such document");
+                            }
+                        } else {
+                            Log.e("errorPoll", "get failed with ", task.getException());
+                        }
+
+                    }
+                });
+
 
         MainActivity.db.collection("userLogros")
                 .document(MainActivity.mAuth.getCurrentUser().getEmail())
@@ -69,7 +104,6 @@ public class RegisterPollFragment extends BaseFragment {
 
             enviarPoll.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v){
-                    Log.d("babbaboi", "babbaboi");
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 

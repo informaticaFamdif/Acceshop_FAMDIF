@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        dataBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -29,6 +33,8 @@ android {
 }
 
 dependencies {
+    implementation  'com.dialog:plus:4+'
+
     implementation "io.grpc:grpc-okhttp:1.32.2"
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.github.armcha:SpaceNavigationView:1.6.0'

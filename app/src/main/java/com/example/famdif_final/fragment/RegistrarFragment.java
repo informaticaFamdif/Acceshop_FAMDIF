@@ -1,19 +1,25 @@
 package com.example.famdif_final.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dialog.plus.ui.DialogPlus;
+import com.dialog.plus.ui.DialogPlusBuilder;
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.FragmentName;
 import com.example.famdif_final.MainActivity;
@@ -26,6 +32,7 @@ import com.google.firebase.auth.AuthResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +49,15 @@ public class RegistrarFragment extends BaseFragment {
     private TextInputLayout pass;
     private TextInputLayout pass2;
     private Button btnRegistro;
+    private Button seleccionarAnyo;
     private TextView errorPass;
-    private Spinner anyoSelector;
-    private Spinner gradoSelector;
+    private TextView errorComplete;
+    private TextInputLayout anyoNacimiento;
 
-    private List<String> dist= Arrays.asList("100","200","500","1000","CUALQUIERA");
-    private List<String> anyo= Arrays.asList("100","200","500","1000","CUALQUIERA");
+    private Spinner gradoSelector;
+    private ArrayAdapter<String> adapt;
+
+    private List<String> disc= Arrays.asList("Fisica u organica","Sensorial","Intelectual","Mental","Ninguna", "Seleccione grado de discapacidad");
 
     private static final String PASSWORD_PATTERN ="^(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,16}$";
     private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
@@ -69,10 +79,58 @@ public class RegistrarFragment extends BaseFragment {
         pass = view.findViewById(R.id.registroTextPass);
         pass2 = view.findViewById(R.id.registroTextPass2);
         errorPass = view.findViewById(R.id.errorPass);
-        anyoSelector = view.findViewById(R.id.spinnerAnyoNacimiento);
+        errorComplete = view.findViewById(R.id.errorComplete);
+        anyoNacimiento = view.findViewById(R.id.anyoNacimiento);
         gradoSelector = view.findViewById(R.id.spinnerPoseeDiscapacidad);
 
+        seleccionarAnyo = view.findViewById(R.id.seleccionarAnyoBtn);
         btnRegistro = view.findViewById(R.id.registroBtnRegistrar);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        adapt = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(android.R.id.text1)).setText("");
+                    ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+                }
+
+                return v;
+            }
+
+            @Override
+            public int getCount() {
+                return super.getCount()-1; // you dont display last item. It is used as hint.
+            }
+        };
+
+        adapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapt.add("Fisica u organica");
+        adapt.add("Sensorial");
+        adapt.add("Intelectual");
+        adapt.add("Mental");
+        adapt.add("Ninguna");
+        adapt.add("¿Posee alguna discapacidad?"); //This is the text that will be displayed as hint.
+
+
+        gradoSelector.setAdapter(adapt);
+        gradoSelector.setSelection(adapt.getCount()); //set the hint the default selection so it appears on launch.
+
+        seleccionarAnyo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DialogPlusBuilder().setSeparateActionButtons(true).blurBackground().setHeaderBgColor(R.color.white).setTitle("Año de nacimiento")
+                        .setPrimaryTextColor(R.color.colorPrimary)
+                        .buildYearPickerDialog(year, 1900, pickedYear ->
+                            anyoNacimiento.getEditText().setText(String.valueOf(pickedYear))
+                        ).show(getActivity().getSupportFragmentManager(), "Year Picker");
+
+            }
+        });
+
+
 
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +162,15 @@ public class RegistrarFragment extends BaseFragment {
                 errorPass.setVisibility(View.VISIBLE);
             }else if(!pass.getEditText().getText().toString().matches(pass2.getEditText().getText().toString())){
                 Toast.makeText(getContext(),"Las contraseñas no coinciden",Toast.LENGTH_LONG).show();
+            }else if(gradoSelector.getSelectedItem().toString() == "¿Posee alguna discapacidad?"){
+                Toast.makeText(getContext(),"Por favor, marque el apartado de si posee alguna discapacidad",Toast.LENGTH_LONG).show();
+                errorComplete.setVisibility(View.VISIBLE);
+            }else if(nombre.getEditText().getText().toString() == ""){
+                errorComplete.setVisibility(View.VISIBLE);
+            }else if(email.getEditText().getText().toString() == ""){
+                errorComplete.setVisibility(View.VISIBLE);
+            }else if(anyoNacimiento.getEditText().getText().toString() == ""){
+                errorComplete.setVisibility(View.VISIBLE);
             }
             else{
                 MainActivity.mAuth.createUserWithEmailAndPassword(email.getEditText().getText().toString(),pass.getEditText().getText().toString())
@@ -124,6 +191,8 @@ public class RegistrarFragment extends BaseFragment {
                             user.put("nombre",nombre.getEditText().getText().toString());
                             user.put("email",email.getEditText().getText().toString());
                             user.put("pass",pass.getEditText().getText().toString());
+                            user.put("nacidoEn", anyoNacimiento.getEditText().getText().toString());
+                            user.put("discapacidad", gradoSelector.getSelectedItem().toString());
                             user.put("admin","0");
                             MainActivity.db.collection("users").document(email.getEditText().getText().toString())
                                     .set(user);

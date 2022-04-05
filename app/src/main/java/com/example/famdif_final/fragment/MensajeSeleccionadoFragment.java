@@ -1,6 +1,9 @@
 package com.example.famdif_final.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +34,11 @@ public class MensajeSeleccionadoFragment extends BaseFragment {
 
         TextView cuerpo = view.findViewById(R.id.bodyView);
 
-        cuerpo.setText(mensajeSeleccionado.getCuerpo());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cuerpo.setText(Html.fromHtml(mensajeSeleccionado.getCuerpo(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            cuerpo.setText(Html.fromHtml(mensajeSeleccionado.getCuerpo()));
+        }
 
         TextView fecha = view.findViewById(R.id.dateView);
         fecha.setText(mensajeSeleccionado.getFecha());

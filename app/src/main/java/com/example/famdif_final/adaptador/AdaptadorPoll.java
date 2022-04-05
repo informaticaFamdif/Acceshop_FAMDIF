@@ -61,7 +61,7 @@ public class AdaptadorPoll extends BaseAdapter {
 
         tituloPoll.setText(listaPoll.get(position).getTitulo());
         cuantasPreguntas.setText(listaPoll.get(position).getPreguntas());
-        //vecesRespondida.setText(listaPoll.get(position).getVecesRespondida());
+        vecesRespondida.setText(listaPoll.get(position).getVecesRespondido());
         //listaPoll.get(position).getCompletada() ? completada.setImageResource(R.drawable.ic_confirmado) : completada.setImageResource(R.drawable.ic_pendiente);
 
         return convertView;

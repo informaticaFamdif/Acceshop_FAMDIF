@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.3842443729903537" />
+        <entry key="app/src/main/res/drawable-night/leyenda_accedecomercios_02_02_black_ltr.xml" value="0.189" />
+        <entry key="app/src/main/res/drawable-notnight/ic_logo_accede_comercios.xml" value="0.189" />
+        <entry key="app/src/main/res/drawable-notnight/ic_logos_accedemurcia_comercios_01.xml" value="0.1995" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.24537037037037038" />
         <entry key="app/src/main/res/drawable/btn_center_button_test.xml" value="0.3265" />
         <entry key="app/src/main/res/drawable/confirmado.xml" value="0.2295" />
@@ -27,6 +30,8 @@
         <entry key="app/src/main/res/drawable/ic_izq.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_izq169.xml" value="0.2345" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24537037037037038" />
+        <entry key="app/src/main/res/drawable/ic_leyenda_accedecomercios_02_02_black_ltr.xml" value="0.189" />
+        <entry key="app/src/main/res/drawable/ic_leyenda_busqueda.xml" value="0.1995" />
         <entry key="app/src/main/res/drawable/ic_logo_accede_comercios.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/ic_logo_accede_comercios_negro.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/ic_logos_accedemurcia_comercios_01.xml" value="0.3265" />
@@ -36,6 +41,12 @@
         <entry key="app/src/main/res/drawable/ic_marcador_b.xml" value="0.14010416666666667" />
         <entry key="app/src/main/res/drawable/ic_marcador_c.xml" value="0.14114583333333333" />
         <entry key="app/src/main/res/drawable/ic_marcador_d.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_000000.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_01.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_02.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_03.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_05.xml" value="0.1855" />
+        <entry key="app/src/main/res/drawable/ic_medallas_app_comercios_06.xml" value="0.1855" />
         <entry key="app/src/main/res/drawable/ic_mensajes.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/ic_menu_aboutus.xml" value="0.24537037037037038" />
         <entry key="app/src/main/res/drawable/ic_menu_acceder.xml" value="0.199" />
@@ -50,11 +61,13 @@
         <entry key="app/src/main/res/drawable/ic_menu_logout.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/ic_menu_misugerencia.xml" value="0.199" />
         <entry key="app/src/main/res/drawable/ic_menu_nuevatienda.xml" value="0.199" />
+        <entry key="app/src/main/res/drawable/ic_menu_search.xml" value="0.2565" />
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.24537037037037038" />
         <entry key="app/src/main/res/drawable/ic_menu_sugerencia.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_menu_valorar.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_menu_versugerencias.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_noticias.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/ic_pantalla_carga_accedecomercios_01.xml" value="0.1995" />
         <entry key="app/src/main/res/drawable/ic_pendiente.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.25833333333333336" />
         <entry key="app/src/main/res/layout-w320dp/fragment_index.xml" value="0.25" />
@@ -73,6 +86,7 @@
         <entry key="app/src/main/res/layout/fragment_crear_tienda.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_edit_shop.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home_old.xml" value="0.1573321932449765" />
         <entry key="app/src/main/res/layout/fragment_home_wip.xml" value="0.16246498599439776" />
         <entry key="app/src/main/res/layout/fragment_index.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_lista_tiendas_valorar.xml" value="0.12135416666666667" />
@@ -85,14 +99,15 @@
         <entry key="app/src/main/res/layout/fragment_resultado_usuarios.xml" value="0.19701086956521738" />
         <entry key="app/src/main/res/layout/fragment_suggestion.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_test_poll.xml" value="0.3039760581445062" />
-        <entry key="app/src/main/res/layout/fragment_tienda_seleccionada.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_tienda_seleccionada.xml" value="0.25717017208413" />
         <entry key="app/src/main/res/layout/fragment_usuario_adapter.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_valorar_tienda.xml" value="0.165" />
         <entry key="app/src/main/res/layout/home_page_buttons.xml" value="0.33" />
         <entry key="app/src/main/res/layout/image_item.xml" value="0.11778115501519756" />
         <entry key="app/src/main/res/layout/image_view.xml" value="0.2341485507246377" />
+        <entry key="app/src/main/res/layout/index_page_buttons.xml" value="0.14194100042753313" />
         <entry key="app/src/main/res/layout/info_window_adapter.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_achievement.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_achievement.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_mensaje.xml" value="0.3039760581445062" />
         <entry key="app/src/main/res/layout/item_poll.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_sugerencia.xml" value="0.18478260869565216" />
@@ -104,8 +119,10 @@
         <entry key="app/src/main/res/layout/messages_scene.xml" value="0.27661393758016245" />
         <entry key="app/src/main/res/layout/news_scene.xml" value="0.21" />
         <entry key="app/src/main/res/layout/news_scene_home.xml" value="0.18127404873877725" />
+        <entry key="app/src/main/res/layout/old_fragment_index.xml" value="0.14194100042753313" />
         <entry key="app/src/main/res/layout/polls_scene.xml" value="0.27661393758016245" />
         <entry key="app/src/main/res/layout/prueba_imagebuttons.xml" value="1.0" />
+        <entry key="app/src/main/res/layout/temp_index_scroll.xml" value="0.25" />
         <entry key="app/src/main/res/layout/test_layout.xml" value="0.22" />
         <entry key="app/src/main/res/menu/admin_menu.xml" value="0.2421875" />
         <entry key="app/src/main/res/menu/admin_menu_popup.xml" value="0.16545532278751604" />

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".fragment.BusquedaFragment">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="580dp"
@@ -19,6 +18,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/idNombreTienda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Nombre" />
+
+            <EditText
+                android:id="@+id/textoNombreTienda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/tipoEstablecimiento"
@@ -41,25 +53,6 @@
                 android:id="@+id/desplegablesubtipoEstablecimiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/idNombreTienda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Nombre" />
-
-            <EditText
-                android:id="@+id/textoNombreTienda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-            <TextView
-                android:id="@+id/idDireccion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dirección" />
 
             <EditText
                 android:id="@+id/textoDireccion"
@@ -96,6 +89,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/home_buscar" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:id="@+id/leyendaImage"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/ic_leyenda_accedecomercios"/>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

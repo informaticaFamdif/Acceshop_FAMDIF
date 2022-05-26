@@ -16,7 +16,6 @@ public class TipoTienda {
         tiposTienda.add("Alimentación");
         tiposTienda.add("Automoción");
         tiposTienda.add("Bancos, seguros y gestoría");
-        tiposTienda.add("Cualquiera");
         tiposTienda.add("Educación y auxiliares");
         tiposTienda.add("Estética y cuidado personal");
         tiposTienda.add("Hogar y decoración");
@@ -24,8 +23,11 @@ public class TipoTienda {
         tiposTienda.add("Ocio y entretenimiento");
         tiposTienda.add("Restauración");
         tiposTienda.add("Salud");
-        tiposTienda.add("Tecnología");
+        tiposTienda.add("Tecnología y telecomunicaciones");
         tiposTienda.add("Textil y complementos");
+        tiposTienda.add("Viajes y transportes");
+        tiposTienda.add("Arte");
+        tiposTienda.add("Residencial Público");
         tiposTienda.add("Otros");
 
     }

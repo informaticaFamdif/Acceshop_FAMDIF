@@ -172,7 +172,7 @@ public class EditShopFragment extends BaseFragment {
         }else if(direccion.getText().toString().length()<=0){
                 Toast.makeText(getContext(),"LA dirección no puede ser vacía",Toast.LENGTH_LONG).show();
         }else{
-                MainActivity.db.collection("comerciosElCarmenTest").document(tienda.getId())
+                MainActivity.db.collection("ComerciosMurcia").document(tienda.getId())
                         .update("nombre",nombreTienda.getText().toString(),
                                 "direccion",direccion.getText().toString(),
                                 "tipo",tipoTienda.getSelectedItem().toString(),

@@ -1,6 +1,9 @@
 package com.example.famdif_final;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -55,10 +59,13 @@ import com.example.famdif_final.fragment.SuggestionFragment;
 import com.example.famdif_final.fragment.TiendaSeleccionadaFragment;
 import com.example.famdif_final.fragment.polls.RegisterPollFragment;
 import com.example.famdif_final.fragment.polls.TestPollFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -66,16 +73,17 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
+    //private DrawerLayout drawerLayout;
     public static FirebaseAuth mAuth;
     public static FirebaseFirestore db;
     public static DatabaseReference databaseReference;
     public static DatabaseReference image;
     public static StorageReference mStorageRef;
+    public static Boolean isCheckedPrivacidad = false;
 
     public static LocationManager locationManager;
     public static LocationListener locationListener;
-    public static Location loca; //Pa loca tu, calva
+    public static Location loca; //Pa loca tú, calva
 
     public static ArrayList<String> logrosUsuario = new ArrayList<>();
 
@@ -87,6 +95,24 @@ public class MainActivity extends AppCompatActivity {
 
     public static Controlador controlador;
 
+    SharedPreferences sharedPreferences;
+
+    public static final String filename = "login";
+    public static final String username = "username";
+
+    public static String nombreComercioFiltros = "";
+    public static int tipoComercioFiltros = -1;
+    public static int subtipoComercioFiltros = -1;
+    public static int distanciaComercioFiltros = -1;
+    public static int accesibilidadComercioFiltros = -1;
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view.findViewById(R.id.checkboxPrivacidad)).isChecked();
+        if (checked) {
+            isCheckedPrivacidad = true;
+        };
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -115,6 +141,12 @@ public class MainActivity extends AppCompatActivity {
             pageTitle.setTextColor(Color.BLACK);
         }
 
+        if (getSharedPreferences(filename, Context.MODE_PRIVATE).contains(username)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Hello " + username);
+            // Create the AlertDialog object and return it
+            builder.create();
+        }
 
         ActionBar actionBar = getSupportActionBar();
    //     if (actionBar != null) {
@@ -122,19 +154,40 @@ public class MainActivity extends AppCompatActivity {
    //         actionBar.setDisplayHomeAsUpEnabled(true);
    //     }
 
-        drawerLayout = findViewById(R.id.index_layout);
+        //drawerLayout = findViewById(R.id.index_layout);
 
         NavigationView navigationView = findViewById(R.id.navigation_index_view);
         if (navigationView != null) {
             setupNavigationDrawerContent(navigationView);
         }
         setupNavigationDrawerContent(navigationView);
-        if (mAuth.getCurrentUser() == null || mAuth.getCurrentUser().getDisplayName().isEmpty() ) {
+        if (null == mAuth.getCurrentUser() || mAuth.getCurrentUser().getEmail().isEmpty()) {
+            Log.d("user", "empty");
             setFragment(FragmentName.INDEX);
         } else {
+            Log.d("user", "not empty");
             setFragment(FragmentName.HOME);
+            ArrayList<String> arrayListAux = new ArrayList<String>();
+            MainActivity.db.collection("userLogros").document(mAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> ds) {
+                    if (ds.isSuccessful()) {
+                        DocumentSnapshot document = ds.getResult();
+                        if (document.exists()) {
+                            for (Object h : document.getData().values()) {
+                                arrayListAux.add(h.toString());
+                            }
+                            MainActivity.logrosUsuario = arrayListAux;
+                        } else {
+                            Log.d("No such document", "");
+                        }
+                    } else {
+                        Log.d("get failed with ", ds.getException().toString());
+                    }
 
-            Log.d("nombre del tolay",mAuth.getCurrentUser().getDisplayName());
+                }
+            });
+            Log.d("email del tolay",mAuth.getCurrentUser().getEmail());
         }
 
     }
@@ -167,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
+                //drawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -306,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
 
-                        drawerLayout.closeDrawer(GravityCompat.START);
+                        //drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     }
                 }
@@ -488,11 +541,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         //Si tiene fragments simplemente ejecuta la pulsación Back normal
-        if (fragmentManager.getBackStackEntryCount()>0)
+        if (fragmentManager.getBackStackEntryCount()>1)
             super.onBackPressed();
         else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("¿Desea realmente salir de la aplicación?")
+            builder.setMessage("¿Desea salir de la aplicación?")
                     .setTitle("CERRAR APLICACION");
             builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                 @Override

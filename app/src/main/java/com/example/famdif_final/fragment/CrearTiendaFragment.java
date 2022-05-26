@@ -256,7 +256,7 @@ public class CrearTiendaFragment extends BaseFragment {
         tienda.put("acceso",t.getAcceso());
         tienda.put("puertaAcceso",t.getPuertaAcceso());
 
-        MainActivity.db.collection("comerciosElCarmenTest").document(id.getText().toString())
+        MainActivity.db.collection("ComerciosMurcia").document(id.getText().toString())
         .set(tienda);
 
     }

@@ -2,6 +2,7 @@ package com.example.famdif_final.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,34 +50,41 @@ public class AccederFragment extends BaseFragment {
     private TextInputLayout pass1;
     //private  EditText pass;
     private Button btn;
+    private Button register;
+
+    SharedPreferences sharedPreferences;
+
+    public static final String fileName = "login";
+    public static final String username = "username";
+    public static final String password = "password";
+
 
     private static final int RC_SIGN_IN=100;
     private GoogleSignInClient googleSignInClient;
-
-
 
     public  AccederFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("loggedin?", null != MainActivity.mAuth.getCurrentUser() ? MainActivity.mAuth.getCurrentUser().getEmail() : "nadie");
 
-        GoogleSignInOptions gso = new GoogleSignInOptions
-                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))  //ignorar error
-                .requestEmail()
-                .build();
+        sharedPreferences = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
+/*
+        if(sharedPreferences.contains(username)){
 
-        googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-
+            Intent i = new Intent (getActivity().getApplication(), MainActivity.class);
+            startActivity(i);
+        }
+*/
         setMainActivity((MainActivity) getActivity());
-
 
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_acceder, container, false);
+
+        register = view.findViewById(R.id.register);
 
         //email = view.findViewById(R.id.idEmailUsuario);
         email1 = view.findViewById(R.id.accederTextEmail);
@@ -87,6 +95,13 @@ public class AccederFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 logInClick(view);
+            }
+        });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TransitionManager.go(newsScene);
+                getMainActivity().setFragment(FragmentName.SIGN_IN);
             }
         });
 
@@ -120,6 +135,10 @@ public class AccederFragment extends BaseFragment {
                             MainActivity.db.collection("users").document(email1.getEditText().getText().toString()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot ds) {
+                                    //SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    //editor.putString(username, username);
+                                    //editor.putString(password, password);
+                                    //editor.commit();
                                     if(ds.get("admin").toString().equals("1")) {
                                         getMainActivity().changeMenu(MenuType.ADMIN_LOGGED);
                                         Controlador.getInstance().setAdmin(1);
@@ -169,6 +188,7 @@ public class AccederFragment extends BaseFragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+
                             Toast.makeText(getContext(), "Usuario inexistente o contraseña incorrecta. Por favor, vuelve a intentarlo", Toast.LENGTH_SHORT).show();
                         }
                     });

@@ -29,7 +29,7 @@
     <FrameLayout
         android:id="@+id/scene_root_index"
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="@dimen/_340sdp"
         app:layout_constraintBottom_toTopOf="@+id/botoneraIndex"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

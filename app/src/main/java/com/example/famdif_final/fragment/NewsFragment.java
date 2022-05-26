@@ -92,7 +92,7 @@ public class NewsFragment extends BaseFragment {
 
         View childLayout = new View(getContext());
 
-        if(Controlador.getInstance().getNombreUsuarioActual() == null){
+        if(Controlador.getInstance().getEmailUsuarioActual() == ""){
 
             view = inflateFragment(R.layout.news_scene, inflater, container);
             child_id = "index_nav_menu";

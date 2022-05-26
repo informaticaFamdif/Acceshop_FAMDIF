@@ -27,6 +27,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/menu_acceder" />
 
+            <Button
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿No tienes cuenta? ¡Registrate!" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -52,7 +58,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:id="@+id/accederTextEmailText"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +73,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:id="@+id/accederTextPassword"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

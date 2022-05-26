@@ -77,7 +77,7 @@ public class BusquedaTiendaValorarResultFragment extends BaseFragment{
 
     private void recuperarTiendas() {
         model.clear();
-        MainActivity.db.collection("comerciosElCarmenTest")
+        MainActivity.db.collection("ComerciosMurcia")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -117,6 +117,7 @@ public class BusquedaTiendaValorarResultFragment extends BaseFragment{
     }
 
     public void detallesTienda(int i){
+
         Tienda t = new Tienda(model.get(i).getId(),model.get(i).getNombre(),model.get(i).getTipo(),model.get(i).getSubtipo(),
                 model.get(i).getDireccion(),model.get(i).getClasificacion(),model.get(i).getLatitud(),model.get(i).getLongitud(),
                 model.get(i).getFechaVisita(),model.get(i).getAcceso(),model.get(i).getPuertaAcceso());

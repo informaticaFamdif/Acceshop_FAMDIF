@@ -22,6 +22,7 @@ public class Controlador {
     private String usuarioBorrar;
     private String sugerenciasUsuario;
     private String nombreUsuarioActual;
+    private String emailUsuarioActual;
     private String nombreTiendaValorar="";
     private String direccionTiendaValorar="";
     private int sugerenciasTotal;
@@ -219,6 +220,13 @@ public class Controlador {
 
     public void setNombreUsuarioActual(String nombreUsuarioActual) {
         this.nombreUsuarioActual = nombreUsuarioActual;
+    }
+
+    public void setEmailUsuarioActual(String emailUsuarioActual) {
+        this.emailUsuarioActual = emailUsuarioActual;
+    }
+    public String getEmailUsuarioActual() {
+        return null != MainActivity.mAuth.getCurrentUser() ? MainActivity.mAuth.getCurrentUser().getEmail() : "";
     }
 
     public String getNombreUsuarioActual() {

@@ -22,9 +22,10 @@
     <string name="imagen">imagen</string>
     <string name="acceder_con_google">Acceder con Google</string>
     <string name="email">Email</string>
+    <string name="privacypolicy">He leído y acepto la <a href="https://drive.google.com/file/d/1yczFVIXJ700bx297gG-Ru5_LLopAxMY4/view?usp=sharing">Política de privacidad</a></string>
     <string name="contraseña">Contraseña</string>
     <string name="repetir_contraseña">Repetir Contraseña</string>
-    <string name="Nombre">Nombre:</string>
+    <string name="Nombre">Nombre del comercio:</string>
     <string name="home_valorar">Valorar Establecimiento</string>
     <string name="home_sugerencia">Realizar Sugerencia</string>
     <string name="home_logout">Desconectar</string>

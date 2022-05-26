@@ -1,8 +1,10 @@
 package com.example.famdif_final.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +66,7 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
     private Button btnEditarTienda;
     private Button valorarTienda;
     private Button btnEliminarTienda;
+    private Button btnDirecciones;
     private RatingBar ratingBar;
     private RatingBar ratingBarMedium;
     private int contVotos;
@@ -123,6 +127,8 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
         btnEliminarTienda.setVisibility(View.INVISIBLE);
         btnEditarTienda.setVisibility(View.INVISIBLE);
 
+        btnDirecciones=view.findViewById(R.id.btnDirecciones);
+
         valorarTienda=view.findViewById(R.id.btnValorar);
         valorarTienda.setVisibility(View.INVISIBLE);
         ratingBar.setVisibility(View.INVISIBLE);
@@ -157,6 +163,19 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
                 realizarVotacion();
             }
         });
+
+       btnDirecciones.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String dirAux = tiendaSeleccionada.getDireccion().replaceAll("\\s+", "+");
+               String urlGoogleMaps = "https://www.google.com/maps/dir/?api=1&origin=&destination=" + dirAux;
+               Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlGoogleMaps));
+               intent.setPackage("com.google.android.apps.maps");
+               startActivity(intent);
+
+               Log.d("url", urlGoogleMaps);
+           }
+       });
 
         btnEliminarTienda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,7 +362,7 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
                     }
                 });
 
-        MainActivity.db.collection("comerciosElCarmenTest")
+        MainActivity.db.collection("ComerciosMurcia")
                 .whereEqualTo("id",tiendaSeleccionada.getId())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -351,7 +370,7 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
-                                MainActivity.db.collection("comerciosElCarmenTest")
+                                MainActivity.db.collection("ComerciosMurcia")
                                         .document(document.getId())
                                         .delete()
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {

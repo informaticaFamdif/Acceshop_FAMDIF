@@ -67,7 +67,7 @@ public class MapsFragment extends BaseFragment {
                     LatLng sydney = new LatLng(Double.valueOf(t.getLatitud()), Double.valueOf(t.getLongitud()));
 
                     snippet = t.getDireccion() + "\n" + "\n" + t.getTipo() + " (" + t.getSubtipo() + ")" + "\n" + "\n" +
-                            t.getClasificacion()+" - "+parsearAccesibilidadBBDD(t.getClasificacion()) + "\n";
+                            t.getClasificacion()+" - "+parsearAccesibilidadBBDD(t.getClasificacion()) + "\n\n" + "Toque para más información";
 
                     //googleMap.addMarker(new MarkerOptions().position(sydney).title(t.getNombre()).snippet(snippet).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                     Log.i("ID - CLASIFICACION ", t.getId() + " " + t.getClasificacion());
@@ -101,8 +101,10 @@ public class MapsFragment extends BaseFragment {
                         @Override
                         public void onInfoWindowClick(Marker marker) {
                             for (Tienda t : lista) {
-                                if (t.getNombre().matches(marker.getTitle()))
+                                if (t.getNombre().matches(marker.getTitle())){
+                                    Log.d("elemento1", marker.getTitle() + " es igual a " + t.getNombre());
                                     Controlador.getInstance().setSelectedShop(t);
+                                }
                             }
                             getMainActivity().setFragment(FragmentName.SEARCH_RESULT_DETAILS);
                         }

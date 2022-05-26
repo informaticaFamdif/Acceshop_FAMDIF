@@ -131,7 +131,7 @@ public class MessagesFragment extends BaseFragment {
         Log.d("includeFrame", includeFrame.toString());
         Log.d("childLayout", childLayout.toString());
 
-        if (Controlador.getInstance().getNombreUsuarioActual() == null) {
+        if (Controlador.getInstance().getEmailUsuarioActual() == "") {
 
             child_id = "index_nav_menu";
             childLayout = inflater.inflate(R.layout.index_page_buttons, (ViewGroup) view.findViewById(R.id.index_nav_menu));

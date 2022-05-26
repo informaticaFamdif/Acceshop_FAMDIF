@@ -62,7 +62,7 @@ public class BusquedaFragment extends BaseFragment {
 
     private TextView nombreTienda;
     private TextView direccion;
-    private List<String> dist= Arrays.asList("100","200","500","1000","CUALQUIERA");
+    private List<String> dist= Arrays.asList("200","500","1000","CUALQUIERA");
     private List<String> accesibilidad=Arrays.asList("ACCESIBLE", "ACCESIBLE CON DIFICULTAD","PRACTICABLE CON AYUDA","CUALQUIERA");
     private Button busqueda;
     private DatabaseReference resultado;
@@ -104,6 +104,23 @@ public class BusquedaFragment extends BaseFragment {
         busqueda=view.findViewById(R.id.btnBusqueda);
         nombreTienda=view.findViewById(R.id.textoNombreTienda);
         direccion=view.findViewById(R.id.textoDireccion);
+        direccion.setVisibility(View.GONE);
+
+        if(MainActivity.nombreComercioFiltros != ""){
+            nombreTienda.setText(MainActivity.nombreComercioFiltros);
+        }
+        if(MainActivity.tipoComercioFiltros != -1){
+            tipoTienda.setSelection(MainActivity.tipoComercioFiltros);
+        }
+        if(MainActivity.subtipoComercioFiltros != -1){
+            subtipoTienda.setSelection(MainActivity.subtipoComercioFiltros);
+        }
+        if(MainActivity.distanciaComercioFiltros != -1){
+            despDistancia.setSelection(MainActivity.distanciaComercioFiltros);
+        }
+        if(MainActivity.accesibilidadComercioFiltros != -1){
+            despAccesibilidad.setSelection(MainActivity.accesibilidadComercioFiltros);
+        }
 
         getUbicacion();
 
@@ -201,89 +218,28 @@ public class BusquedaFragment extends BaseFragment {
         getUbicacion();
         int accTemp=parsearAccesibilidadTextoNumero(accesMin);
 
-        if(!nombreTienda.getText().toString().matches("") && !direccion.getText().toString().matches(""))
-            tipoBusqueda=2;
-        else if(!nombreTienda.getText().toString().matches("") && direccion.getText().toString().matches(""))
-            tipoBusqueda=1;
-        else if(nombreTienda.getText().toString().matches("") && !direccion.getText().toString().matches(""))
+        if(!nombreTienda.getText().toString().matches(""))
             tipoBusqueda=3;
-        else if(nombreTienda.getText().toString().matches("") && direccion.getText().toString().matches(""))
+        else if(nombreTienda.getText().toString().matches(""))
             tipoBusqueda=4;
 
-        MainActivity.db.collection("comerciosElCarmenTest")
+        MainActivity.nombreComercioFiltros = nombreTienda.getText().toString();
+        MainActivity.tipoComercioFiltros = tipoTienda.getSelectedItemPosition();
+        MainActivity.subtipoComercioFiltros = subtipoTienda.getSelectedItemPosition();
+        MainActivity.distanciaComercioFiltros = despDistancia.getSelectedItemPosition();
+        MainActivity.accesibilidadComercioFiltros = despAccesibilidad.getSelectedItemPosition();
+
+    if(stTienda.equals("Cualquiera")) {
+        MainActivity.db.collection("ComerciosMurcia")
                 .whereEqualTo("tipo", tTienda)
-                .whereEqualTo("subtipo", stTienda)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful() && tipoBusqueda == 2){
+                        if (task.isSuccessful() && tipoBusqueda == 3) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Tienda tienda = document.toObject(Tienda.class);
-                                if(tienda.getNombre().contains(nombreTienda.getText().toString().toUpperCase()) &&
-                                        tienda.getDireccion().contains(direccion.getText().toString().toUpperCase())){
-                                    if (distancia.matches("CUALQUIERA") && accTemp == 4) {
-                                        tiendasEncontradas.add(tienda);
-                                    } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
-                                        if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
-                                            tiendasEncontradas.add(tienda);
-                                        }
-                                    } else {
-                                        if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
-                                                <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
-                                                (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
-                                        )
-                                            tiendasEncontradas.add(tienda);
-                                    }
-                                }
-                            }
-                            Controlador.getInstance().setShops(tiendasEncontradas);
-                            if (tiendasEncontradas.size() > 0) {
-                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
-                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
-                                    MainActivity.db.collection("userLogros")
-                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
-                                            .update("000002", "000002");
-                                    MainActivity.logrosUsuario.add("000002");
-                                    }
-                                }
-                                getMainActivity().setFragment(FragmentName.MAP);
-                            }
-                        }else if(task.isSuccessful() && tipoBusqueda == 1){
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Tienda tienda = document.toObject(Tienda.class);
-                                if(tienda.getNombre().contains(nombreTienda.getText().toString().toUpperCase())){
-                                    if (distancia.matches("CUALQUIERA") && accTemp == 4) {
-                                        tiendasEncontradas.add(tienda);
-                                    } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
-                                        if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
-                                            tiendasEncontradas.add(tienda);
-                                        }
-                                    } else {
-                                        if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
-                                                <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
-                                                (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
-                                        )
-                                            tiendasEncontradas.add(tienda);
-                                    }
-                                }
-                            }
-                            Controlador.getInstance().setShops(tiendasEncontradas);
-                            if (tiendasEncontradas.size() > 0) {
-                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
-                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
-                                    MainActivity.db.collection("userLogros")
-                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
-                                            .update("000002", "000002");
-                                    MainActivity.logrosUsuario.add("000002");
-                                    }
-                                }
-                                getMainActivity().setFragment(FragmentName.MAP);
-                            }
-                        }else if(task.isSuccessful() && tipoBusqueda == 3){
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Tienda tienda = document.toObject(Tienda.class);
-                                if(tienda.getDireccion().contains(direccion.getText().toString().toUpperCase())){
+                                if (tienda.getNombre().toUpperCase().replaceAll("[^\\p{ASCII}]", "").contains(nombreTienda.getText().toString().toUpperCase().replaceAll("[^\\p{ASCII}]", ""))) {
                                     if (distancia.matches("CUALQUIERA") && accTemp == 4) {
                                         tiendasEncontradas.add(tienda);
                                     } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
@@ -302,7 +258,7 @@ public class BusquedaFragment extends BaseFragment {
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
-                                if (MainActivity.mAuth.getCurrentUser().getEmail() != null) {
+                                if (MainActivity.mAuth.getCurrentUser() != null) {
                                     if (!(MainActivity.logrosUsuario.contains("000002"))) {
                                         MainActivity.db.collection("userLogros")
                                                 .document(MainActivity.mAuth.getCurrentUser().getEmail())
@@ -311,43 +267,55 @@ public class BusquedaFragment extends BaseFragment {
                                     }
                                 }
                                 getMainActivity().setFragment(FragmentName.MAP);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setMessage("No se han encontrado tiendas con los criterios indicados\n(Prueba a aumentar la distancia de búsqueda o cambia el grado de accesibilidad)")
+                                        .setTitle("SIN RESULTADOS");
+                                builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                             }
-                        }else if(task.isSuccessful() && tipoBusqueda == 4){
+                        } else if (task.isSuccessful() && tipoBusqueda == 4) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Tienda tienda = document.toObject(Tienda.class);
-                                    if (distancia.matches("CUALQUIERA") && accTemp == 4) {
+                                if (distancia.matches("CUALQUIERA") && accTemp == 4) {
+                                    tiendasEncontradas.add(tienda);
+                                } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
+                                    if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
                                         tiendasEncontradas.add(tienda);
-                                    } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
-                                        if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
-                                            tiendasEncontradas.add(tienda);
-                                        }
-                                    } else {
-                                        if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
-                                                <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
-                                                (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
-                                        )
-                                            tiendasEncontradas.add(tienda);
                                     }
+                                } else {
+                                    if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
+                                            <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
+                                            (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
+                                    )
+                                        tiendasEncontradas.add(tienda);
+                                }
 
                             }
                             Controlador.getInstance().setShops(tiendasEncontradas);
                             if (tiendasEncontradas.size() > 0) {
                                 if (MainActivity.mAuth.getCurrentUser() != null) {
-                                    if (!(MainActivity.logrosUsuario.contains("000002"))){
-                                    MainActivity.db.collection("userLogros")
-                                            .document(MainActivity.mAuth.getCurrentUser().getEmail())
-                                            .update("000002", "000002");
-                                    MainActivity.logrosUsuario.add("000002");
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))) {
+                                        MainActivity.db.collection("userLogros")
+                                                .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                                .update("000002", "000002");
+                                        MainActivity.logrosUsuario.add("000002");
                                     }
                                 }
                                 getMainActivity().setFragment(FragmentName.MAP);
-                            }else{
+                            } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                builder.setMessage("No se han encontrado tiendas con los criterios indicados" )
+                                builder.setMessage("No se han encontrado tiendas con los criterios indicados\n(Prueba a aumentar la distancia de búsqueda o cambia el grado de accesibilidad)")
                                         .setTitle("SIN RESULTADOS");
                                 builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {}
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
                                 });
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
@@ -358,6 +326,105 @@ public class BusquedaFragment extends BaseFragment {
                     }
 
                 });
+    }else {
+        MainActivity.db.collection("ComerciosMurcia")
+                .whereEqualTo("tipo", tTienda)
+                .whereEqualTo("subtipo", stTienda)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() && tipoBusqueda == 3) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Tienda tienda = document.toObject(Tienda.class);
+                                if (tienda.getNombre().toUpperCase().replaceAll("[^\\p{ASCII}]", "").contains(nombreTienda.getText().toString().toUpperCase().replaceAll("[^\\p{ASCII}]", "")))  {
+                                    if (distancia.matches("CUALQUIERA") && accTemp == 4) {
+                                        tiendasEncontradas.add(tienda);
+                                    } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
+                                        if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
+                                            tiendasEncontradas.add(tienda);
+                                        }
+                                    } else {
+                                        if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
+                                                <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
+                                                (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
+                                        )
+                                            tiendasEncontradas.add(tienda);
+                                    }
+                                }
+
+                            }
+                            Controlador.getInstance().setShops(tiendasEncontradas);
+                            if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))) {
+                                        MainActivity.db.collection("userLogros")
+                                                .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                                .update("000002", "000002");
+                                        MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
+                                getMainActivity().setFragment(FragmentName.MAP);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setMessage("No se han encontrado tiendas con los criterios indicados\n(Prueba a aumentar la distancia de búsqueda o cambia el grado de accesibilidad)")
+                                        .setTitle("SIN RESULTADOS");
+                                builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        } else if (task.isSuccessful() && tipoBusqueda == 4) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Tienda tienda = document.toObject(Tienda.class);
+                                if (distancia.matches("CUALQUIERA") && accTemp == 4) {
+                                    tiendasEncontradas.add(tienda);
+                                } else if (distancia.matches("CUALQUIERA") && accTemp != 4) {
+                                    if (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp) {
+                                        tiendasEncontradas.add(tienda);
+                                    }
+                                } else {
+                                    if ((distanciaCoord(latitudActual, longitudActual, Double.valueOf(tienda.getLatitud()), Double.valueOf(tienda.getLongitud()))
+                                            <= Double.valueOf(despDistancia.getSelectedItem().toString())) &&
+                                            (parsearAccesibilidadBBDD(tienda.getClasificacion()) <= accTemp)
+                                    )
+                                        tiendasEncontradas.add(tienda);
+                                }
+
+                            }
+                            Controlador.getInstance().setShops(tiendasEncontradas);
+                            if (tiendasEncontradas.size() > 0) {
+                                if (MainActivity.mAuth.getCurrentUser() != null) {
+                                    if (!(MainActivity.logrosUsuario.contains("000002"))) {
+                                        MainActivity.db.collection("userLogros")
+                                                .document(MainActivity.mAuth.getCurrentUser().getEmail())
+                                                .update("000002", "000002");
+                                        MainActivity.logrosUsuario.add("000002");
+                                    }
+                                }
+                                getMainActivity().setFragment(FragmentName.MAP);
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                builder.setMessage("No se han encontrado tiendas con los criterios indicados\n(Prueba a aumentar la distancia de búsqueda o cambia el grado de accesibilidad)")
+                                        .setTitle("SIN RESULTADOS");
+                                builder.setPositiveButton("Entendido", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+
+                        }
+
+                    }
+
+                });
+    }
 
     }
 
@@ -383,7 +450,7 @@ public class BusquedaFragment extends BaseFragment {
         getUbicacion();
         int accTemp=parsearAccesibilidadTextoNumero(accesMin);
         if((!nombreTienda.getText().toString().matches("")) && (!direccion.getText().toString().matches(""))){
-            MainActivity.db.collection("comerciosElCarmenTest")
+            MainActivity.db.collection("ComerciosMurcia")
                     .whereArrayContains("nombre",nombreTienda.getText().toString())
                     .whereArrayContains("direccion",direccion.getText().toString())
                     .get()
@@ -418,7 +485,7 @@ public class BusquedaFragment extends BaseFragment {
                         }
                     });
         }else if((!nombreTienda.getText().toString().matches("")) && (direccion.getText().toString().matches(""))){
-            MainActivity.db.collection("comerciosElCarmenTest")
+            MainActivity.db.collection("ComerciosMurcia")
                     .whereGreaterThanOrEqualTo("nombre",nombreTienda.getText().toString().toUpperCase())
                     .whereLessThanOrEqualTo("nombre",nombreTienda.getText().toString().toUpperCase(Locale.ROOT)+'\uf8ff')
                     .get()
@@ -450,7 +517,7 @@ public class BusquedaFragment extends BaseFragment {
                         }
                     });
         }else if((nombreTienda.getText().toString().matches("")) && (!direccion.getText().toString().matches(""))){
-            MainActivity.db.collection("comerciosElCarmenTest")
+            MainActivity.db.collection("ComerciosMurcia")
                     .whereGreaterThanOrEqualTo("direccion",direccion.getText().toString().toUpperCase())
                     .whereLessThanOrEqualTo("direccion",direccion.getText().toString().toUpperCase(Locale.ROOT)+'\uf8ff')
                     .get()
@@ -482,7 +549,7 @@ public class BusquedaFragment extends BaseFragment {
                         }
                     });
         }else{
-            MainActivity.db.collection("comerciosElCarmenTest")
+            MainActivity.db.collection("ComerciosMurcia")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override

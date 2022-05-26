@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".fragment.AboutUsFragment">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_560sdp"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:orientation="vertical">
 
 
@@ -45,4 +47,5 @@
 
 
     </LinearLayout>
+    </ScrollView>
 </FrameLayout>

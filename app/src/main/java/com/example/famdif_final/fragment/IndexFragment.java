@@ -30,6 +30,10 @@ import com.example.famdif_final.MenuType;
 import com.example.famdif_final.R;
 import com.google.android.material.navigation.NavigationView;
 
+import kotlin.reflect.KFunction;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
+
 
 public class IndexFragment extends BaseFragment {
 
@@ -39,8 +43,6 @@ public class IndexFragment extends BaseFragment {
     private TransitionManager transitionManagerForIndexScene;
 
     private ViewGroup sceneRoot;
-
-
 
     public IndexFragment() {
         // Required empty public constructor
@@ -53,7 +55,7 @@ public class IndexFragment extends BaseFragment {
         setMainActivity((MainActivity) getActivity());
 
         View view = inflateFragment(R.layout.fragment_index, inflater, container);
-
+        View auxView = view;
         MainActivity mactiv= (MainActivity) getActivity();
         Toolbar toolbar = mactiv.findViewById(R.id.index_toolbar);
 
@@ -88,6 +90,66 @@ public class IndexFragment extends BaseFragment {
 
         Log.d("botonera", botonera.findViewById(R.id.indexSearchButton).toString());
 
+        final FancyShowCaseView tutorialIndex1 = new FancyShowCaseView.Builder(getActivity()).focusAnimationStep(2)
+                .title("!Bienvenido a la app de ACCEDEComercios! \n Vamos a empezar un pequeño tutorial, para avanzar solo tienes que tocar la pantalla.")
+                .showOnce("tuto1")
+                .build();
+
+        final FancyShowCaseView tutorialIndex2  =new FancyShowCaseView.Builder(getActivity()).focusAnimationStep(2)
+                .focusOn(messages)
+                .title("Este botón te lleva a los mensajes de FAMDIF, aquí iremos subiendo los mensajes exclusivos para los usuarios de esta aplicación.")
+                .showOnce("tuto2")
+                .build();
+
+        final FancyShowCaseView tutorialIndex3 = new FancyShowCaseView.Builder(getActivity()).focusAnimationStep(3)
+                .focusOn(news)
+                .title("En este apartado podrás ver las noticias que publicamos, también tienes accesos directos a la web para ver las noticias completas.")
+                .showOnce("tuto3")
+                .build();
+
+        final FancyShowCaseView tutorialIndex4 = new FancyShowCaseView.Builder(getActivity())
+                .focusOn(polls)
+                .title("Desde este apartado se pueden copletar las encuestas que hacemos desde FAMDIF a nuestros usuarios, debes estar registrado para completarlas.")
+                .showOnce("tuto4")
+                .build();
+
+        final FancyShowCaseView tutorialIndex5 = new FancyShowCaseView.Builder(getActivity())
+                .focusOn(achievements)
+                .title("Este botón te dirige a tu registro de logros, de nuevo debes de estar conectado para poder tener un registro de los mismos. Aunque los consigas todos" +
+                        " asegurate de revisarlo de vez en cuando, seguiremos añadiendo más conforme avance la aplicación.")
+                .showOnce("tuto5")
+                .build();
+        final FancyShowCaseView tutorialIndex6 = new FancyShowCaseView.Builder(getActivity())
+                .focusOn(signIn)
+                .title("Este botón te lleva a la pantalla de registro para que podamos conocerte mejor.")
+                .showOnce("tuto6")
+                .build();
+
+        final FancyShowCaseView tutorialIndex7 = new FancyShowCaseView.Builder(getActivity())
+                .focusOn(logIn)
+                .title("Desde este botón podrás entrar a tu cuenta si ya has creado una en nuestra web.")
+                .showOnce("tuto7")
+                .build();
+
+        final FancyShowCaseView tutorialIndex8 = new FancyShowCaseView.Builder(getActivity())
+                .focusOn(search)
+                .title("Por último este es el botón de búsqueda de comercios, para continuar el tutorial tócalo.")
+                .showOnce("tuto8")
+                .build();
+
+
+        FancyShowCaseQueue cola = new FancyShowCaseQueue()
+                .add(tutorialIndex1)
+                .add(tutorialIndex2)
+                .add(tutorialIndex3)
+                .add(tutorialIndex4)
+                .add(tutorialIndex5)
+                .add(tutorialIndex6)
+                .add(tutorialIndex7)
+                .add(tutorialIndex8);
+
+        cola.show();
+
         menuButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)
             @Override
@@ -108,7 +170,7 @@ public class IndexFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //TransitionManager.go(newsScene);
-                getMainActivity().setFragment(FragmentName.ACHIEVEMENTS_FRAGMENT);
+                youMustBeLoggedIn(auxView);
             }
         });
 
@@ -116,7 +178,7 @@ public class IndexFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //TransitionManager.go(newsScene);
-                getMainActivity().setFragment(FragmentName.POLLS_FRAGMENT);
+                youMustBeLoggedIn(auxView);
             }
         });
 

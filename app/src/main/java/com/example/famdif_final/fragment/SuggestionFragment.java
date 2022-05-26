@@ -67,7 +67,7 @@ public class SuggestionFragment extends BaseFragment {
     private void enviarSugerencia(View view) {
         Map<String, Object> suggestion = new HashMap<>();
 
-        if(Controlador.getInstance().getNombreUsuarioActual()==null) {
+        if(Controlador.getInstance().getEmailUsuarioActual()=="") {
             suggestion.put("email", MainActivity.mAuth.getCurrentUser().getEmail().toString());
             suggestion.put("autor", MainActivity.mAuth.getCurrentUser().getDisplayName());
             suggestion.put("titulo", titulo.getText().toString());

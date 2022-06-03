@@ -1,5 +1,6 @@
 package com.example.famdif_final.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -237,7 +239,6 @@ public class RegistrarFragment extends BaseFragment {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
-
 
 
 }

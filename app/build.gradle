@@ -37,6 +37,7 @@ dependencies {
 
     implementation 'com.github.faruktoptas:FancyShowCaseView:1.3.9'
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+    implementation group: 'javax.mail', name: 'mail', version: '1.4.1'
 
     implementation "io.grpc:grpc-okhttp:1.32.2"
     implementation 'com.intuit.sdp:sdp-android:1.0.6'

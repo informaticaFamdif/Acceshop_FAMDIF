@@ -1,6 +1,7 @@
 package com.example.famdif_final.fragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.famdif_final.Controlador;
 import com.example.famdif_final.MainActivity;
 import com.example.famdif_final.R;
+import com.example.famdif_final.SendMail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +48,9 @@ public class SuggestionFragment extends BaseFragment {
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 enviarSugerencia(v);
+                sendEmail();
             }
         });
 
@@ -80,13 +84,13 @@ public class SuggestionFragment extends BaseFragment {
             suggestion.put("cuerpo", cuerpo.getText().toString());
         }
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getMainActivity());
         builder.setMessage(R.string.dialog_message_confirmar_sugerencia)
                 .setTitle(R.string.dialog_title_confirmar_sugerencia);
         builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                 MainActivity.db.collection("suggestions")
                         .document(MainActivity.mAuth.getCurrentUser().getEmail()+suggestion.get("titulo").toString())
                         .set(suggestion);
@@ -103,10 +107,27 @@ public class SuggestionFragment extends BaseFragment {
                 }
 
         });
+
+
         AlertDialog dialog = builder.create();
         dialog.show();
         Toast.makeText(getContext(),"Sugerencia enviada correctamente",Toast.LENGTH_SHORT);
         titulo.setText("");
         cuerpo.setText("");
+    }
+
+    private void sendEmail() {
+        if(null != MainActivity.mAuth.getCurrentUser()) {
+            String email = MainActivity.mAuth.getCurrentUser().getEmail();
+            String subject = titulo.getText().toString().trim();
+            String message = cuerpo.getText().toString().trim();
+            SendMail sm = new SendMail(this.getContext(), email, subject, message);
+            sm.execute();
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getMainActivity());
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            Toast.makeText(getContext(),"Ha sucedido un error",Toast.LENGTH_SHORT);
+        }
     }
 }

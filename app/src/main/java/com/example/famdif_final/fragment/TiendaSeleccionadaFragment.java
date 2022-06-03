@@ -136,7 +136,7 @@ public class TiendaSeleccionadaFragment extends BaseFragment {
         idPuntTienda.setVisibility(View.INVISIBLE);
 
 
-        if(Controlador.getInstance().getUsuario()!=null){
+        if(MainActivity.mAuth.getCurrentUser()!=null){
             if(Controlador.getInstance().getAdmin()==1){
                 btnEliminarTienda.setVisibility(View.VISIBLE);
                 btnEditarTienda.setVisibility(View.VISIBLE);

@@ -1,6 +1,7 @@
 package com.example.famdif_final.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -124,6 +126,10 @@ public class BusquedaFragment extends BaseFragment {
 
         getUbicacion();
 
+        InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(null != getActivity().getCurrentFocus()) {
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
 
         tipoTiendaLista = new TipoTienda();
         subtipoTiendaLista = new SubtipoTienda("Alimentacion");
@@ -143,9 +149,16 @@ public class BusquedaFragment extends BaseFragment {
 
         MainActivity.controlador.setShops(null);
 
+
+        nombreTienda.setOnFocusChangeListener(getHideIndicatorOnFocusListener());
+
         tipoTienda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(null != getActivity().getCurrentFocus())
+                {
+                    getActivity().getCurrentFocus().clearFocus();
+                }
                 tTienda = (String) tipoTienda.getAdapter().getItem(position);
                 SubtipoTienda subtTienda = new SubtipoTienda(tTienda);
                 ArrayAdapter adapt4 = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item,subtTienda.getSubTiposTienda());
@@ -161,6 +174,10 @@ public class BusquedaFragment extends BaseFragment {
         subtipoTienda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(null != getActivity().getCurrentFocus())
+                {
+                    getActivity().getCurrentFocus().clearFocus();
+                }
                 stTienda = (String) subtipoTienda.getAdapter().getItem(position);
 
             }
@@ -174,6 +191,10 @@ public class BusquedaFragment extends BaseFragment {
         despAccesibilidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(null != getActivity().getCurrentFocus())
+                {
+                    getActivity().getCurrentFocus().clearFocus();
+                }
                 acceSeleccionada = (String) despAccesibilidad.getAdapter().getItem(position);
             }
 
@@ -186,6 +207,10 @@ public class BusquedaFragment extends BaseFragment {
         despDistancia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(null != getActivity().getCurrentFocus())
+                {
+                    getActivity().getCurrentFocus().clearFocus();
+                }
                 distSeleccionada = (String) despDistancia.getAdapter().getItem(position);
             }
 
@@ -199,6 +224,10 @@ public class BusquedaFragment extends BaseFragment {
 
             @Override
             public void onClick(View view) {
+                if(null != getActivity().getCurrentFocus())
+                {
+                    getActivity().getCurrentFocus().clearFocus();
+                }
                 tiendasEncontradas.clear();
                 if(tTienda.matches("Cualquiera")){
                     busqueda2(despDistancia.getSelectedItem().toString(),despAccesibilidad.getSelectedItem().toString());
@@ -660,5 +689,24 @@ public class BusquedaFragment extends BaseFragment {
         }
         return accTemp;
     }
+    private void hideKeybaord(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(inputMethodManager.isActive()) {
+            inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0);
+        }
+    }
+
+    public View.OnFocusChangeListener getHideIndicatorOnFocusListener() {
+        return new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideKeybaord(v);
+                }
+            }
+        };
+    }
+
+
 
 }

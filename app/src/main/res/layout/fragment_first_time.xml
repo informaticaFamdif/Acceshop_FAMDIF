@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FirstTimeFragment"
+    android:layout_marginStart="@dimen/_20sdp"
+    android:layout_marginEnd="@dimen/_20sdp">
+
+    <ImageView
+        android:id="@+id/imagenWellcome"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:layout_marginTop="40dp"
+        android:text="Logo accede comercios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_logo_accede_comercios" />
+
+    <TextView
+        android:id="@+id/textoWellcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="\nBienvenido a la app de ACCEDE Comercios, parece que no estás conectado.\n\n Si lo deseas puedes usar una versión limitada de la app volviendo hacia atrás ¡Pero te estarías perdiendo un montón de funcionalidades!\n"
+        android:textSize="@dimen/_14sdp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagenWellcome" />
+
+    <Button
+        android:id="@+id/botonLoginWellcome"
+        android:layout_width="@dimen/_135sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginTop="36dp"
+        android:text="ya tengo cuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoWellcome" />
+
+    <Button
+        android:id="@+id/botonRegistroWellcome"
+        android:layout_width="@dimen/_135sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginTop="12dp"
+        android:text="Registrarse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonLoginWellcome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

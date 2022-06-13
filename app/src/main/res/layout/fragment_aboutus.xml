@@ -39,11 +39,17 @@
             android:paddingTop="10dp"
             android:text="Promovemos la intervención ante los problemas sociales y en especial ante aquellos que incumben más directamente a las personas con discapacidad física y orgánica, por sus especiales características. Pretendemos alcanzar la eliminación de barreras arquitectónicas y sociales; el acceso a la cultura, al trabajo, al deporte y a la salud, entre otros." />
 
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp" />
+
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_logos_accedemurcia_comercios_01" />
+            app:srcCompat="@drawable/ic_logo_accede_comercios"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>

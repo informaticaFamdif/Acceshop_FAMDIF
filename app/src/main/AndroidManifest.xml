@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.famdif_final">
+    package="com.famdif.famdif_final">
     <!-- Voy a necesitar poner aquí algo para justificar el uso de maps en la app, indagar más luego -->
       <uses-permission android:name="android.permission.WAKE_LOCK" />
 

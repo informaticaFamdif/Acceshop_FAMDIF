@@ -55,7 +55,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:212697632833:android:525ec8bc00f195a08e36c0",
         "android_client_info": {
-          "package_name": "com.example.famdif_final"
+          "package_name": "com.famdif.famdif_final"
         }
       },
       "oauth_client": [
@@ -63,7 +63,7 @@
           "client_id": "212697632833-6pf942cophekgmcsb9v70tr90lum1ppq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.famdif_final",
+            "package_name": "com.famdif.famdif_final",
             "certificate_hash": "a731759bc7234898ffa197dbc4384b51ea8de823"
           }
         },
@@ -71,7 +71,7 @@
           "client_id": "212697632833-r5e4km4c7usdqn3gmehch94hmutfo8ps.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.famdif_final",
+            "package_name": "com.famdif.famdif_final",
             "certificate_hash": "10c358bc3ce0893ba5d2770ef8711d026f94354a"
           }
         },
